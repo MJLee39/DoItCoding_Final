@@ -81,6 +81,7 @@ insert into notice(notice_no,notice_category,notice_title,notice_content,notice_
 < 10. Qna 테이블 >
   *qna_no
   custid		==> fk
+  ticketid		==> fk
   qna_category	==> '예매/드로우','결제/환불','기타'
   qna_title
   qna_content
@@ -89,7 +90,7 @@ insert into notice(notice_no,notice_category,notice_title,notice_content,notice_
   qna_fname
   qna_open	==> qna 공개 여부: 공개(디폴트값 Null), 비공개(N)
   qna_answer	==> 미답변(디폴트값 Null), 답변완료(not null)
-insert into qna(qna_no,custid,qna_category,qna_title,qna_content,qna_hit,qna_date,qna_fname,qna_open,qna_answer) values();
+insert into qna(qna_no,custid,ticketid,qna_category,qna_title,qna_content,qna_hit,qna_date,qna_fname,qna_open,qna_answer) values();
 
 ------------------------------------------------------------
 
@@ -100,7 +101,6 @@ grant connect,resource,dba to c##final;
 ------------------------------------------------------------
 
 < 테이블 생성 SQL >
-
   1. Category 테이블
 create table category(
 	cateid number primary key,
@@ -147,6 +147,9 @@ create table ticket(
 	lat varchar2(100),
 	lng varchar2(100)
 );
+
+insert into ticket(ticketid,cateid,placeid,ticket_name,price,ticket_date,content,img_fname,img_fname_main,vid_url,min_age,runtime,cast,loc,lat,lng)
+ values(0,1,1,'a',0,to_date('2000/01/01 00:00:00','yyyy/mm/dd hh24:mi:ss'),'a','a','a','a',0,0,'a','a','a','a');
 
   5. Seat 테이블
 create table seat(
@@ -207,6 +210,7 @@ create sequence seq_notice_no;
 create table qna(
 	qna_no number primary key,
 	custid varchar2(20) references customer(custid),
+	ticketid number references ticket(ticketid),
 	qna_category varchar2(20) not null,
 	qna_title varchar2(100) not null,
 	qna_content varchar2(1000) not null,
