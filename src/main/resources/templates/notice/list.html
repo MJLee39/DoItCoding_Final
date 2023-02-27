@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td>글번호</td>
+            <td>분류</td>
+            <td>제목</td>
+            <td>조회수</td>
+            <td>등록일</td>
+        </tr>
+        <tr th:each="n:${list}">
+            <td th:text="${n.notice_no}"></td>
+            <td th:text="${n.notice_category}"></td>
+            <td>
+                <a th:href="@{'/notice/detail/'+${n.notice_no}}" th:text="${n.notice_title}"></a>
+            </td>
+            <td th:text="${n.notice_hit}"></td>
+            <td th:text="${n.notice_date}"></td>
+        </tr>
+    </table>
+</body>
+</html>

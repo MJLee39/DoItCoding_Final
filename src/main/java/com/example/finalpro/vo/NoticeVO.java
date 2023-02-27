@@ -1,6 +1,7 @@
 package com.example.finalpro.vo;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -13,4 +14,5 @@ public class NoticeVO {
     private Date notice_date;
     private String notice_category;
     private String notice_fname;
+    private MultipartFile uploadFile;
 }

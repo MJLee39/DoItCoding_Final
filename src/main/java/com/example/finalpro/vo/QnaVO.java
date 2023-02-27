@@ -1,6 +1,7 @@
 package com.example.finalpro.vo;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -16,5 +17,7 @@ public class QnaVO {
     private String qna_category;
     private String qna_fname;
     private String qna_answer;
-    private char qna_open;
+    private String qna_open;
+    private MultipartFile uploadFile;
+    private int ticketid;
 }

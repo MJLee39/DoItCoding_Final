@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>예매내역</h1>
+<table border="1" width="th" >
+    <thead>
+    <tr>
+        <th>장르</th>
+        <th>장소</th>
+        <th>이름</th>
+        <th>가격</th>
+        <th>상영날짜</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${ticketVOList}">
+        <div th:switch="${t.cateid}">
+            <td th:case="1">영화 시사회</td>
+            <td th:case="2">뮤지컬</td>
+            <td th:case="3">연극</td>
+            <td th:case="4">콘서트</td>
+        </div>
+        <td th:text="${t.placeid}"></td>
+        <td th:text="${t.ticket_name}"></td>
+        <td th:text="${t.price}"></td>
+        <td th:text="${t.ticket_date}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

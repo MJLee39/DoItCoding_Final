@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form action="/admin/notice/insert" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <select name="notice_category">
+      <option>예매/드로우</option>
+      <option>결제/환불</option>
+      <option>기타</option>
+    </select>
+    <br>
+    <input name="notice_title" placeholder="제목"><br>
+    <input name="notice_content" placeholder="내용"><br>
+    <input type="file" name="uploadFile"><br>
+    <input type="submit" value="등록">
+  </form>
+</body>
+</html>

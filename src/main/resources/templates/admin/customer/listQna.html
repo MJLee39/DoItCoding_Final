@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>글번호</td>
+        <td>분류</td>
+        <td>제목</td>
+        <td>조회수</td>
+        <td>등록일</td>
+        <td>공개여부</td>
+        <td>답변</td>
+    </tr>
+    <tr th:each="q:${listQna}">
+        <td th:text="${q.qna_no}"></td>
+        <td th:text="${q.qna_category}"></td>
+        <td>
+            <a th:href="@{'/qna/detail/'+${q.qna_no}}" th:text="${q.qna_title}"></a>
+        </td>
+        <td th:text="${q.qna_hit}"></td>
+        <td th:text="${q.qna_date}"></td>
+        <td th:text="${q.qna_open}"></td>
+        <td th:text="${q.qna_answer}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:text="${n.notice_no}"></div>
+    <div th:text="${n.notice_category}"></div>
+    <div th:text="${n.notice_title}"></div>
+    <div th:text="${n.notice_content}"></div>
+    <div th:text="${n.notice_hit}"></div>
+    <div th:text="${n.notice_date}"></div>
+    <div th:if="${n.notice_fname}!=null">
+        <div th:text="${n.notice_fname}"></div>
+        <div th:if="${#strings.endsWith(n.notice_fname,'.jpg')} or ${#strings.endsWith(n.notice_fname,'.png')} or ${#strings.endsWith(n.notice_fname,'.gif')}">
+            <img th:src="@{'/notice_files/'+${n.notice_fname}}">
+        </div>
+        <div th:unless="${#strings.endsWith(n.notice_fname,'.jpg')} or ${#strings.endsWith(n.notice_fname,'.png')} or ${#strings.endsWith(n.notice_fname,'.gif')}">
+            <div th:text="${n.notice_fname}"></div>
+        </div>
+    </div>
+</body>
+</html>

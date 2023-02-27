@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script>
+    $(function(){
+      //답글 등록 클릭 시 처리
+      $('#answer_submit').click(function (){
+        $.ajax({
+          url:"/qna/answer/update",
+          data:{qna_no:$('#qna_no').text(), qna_answer:$('.textarea_qna_answer').val()},
+          success:function(re){
+            console.log("result:",re)
+            $('#div_qna_answer').text($('.textarea_qna_answer').val())
+          }
+        })
+      })
+      //답글 삭제
+      $('#answer_delete').click(function (){
+        if(confirm("정말로 삭제하시겠습니까?")) {
+          $.ajax({
+            url: "/qna/answer/delete",
+            data: {qna_no: $('#qna_no').text()},
+            success: function (re) {
+              if (re == 1) {
+                alert("삭제했습니다.")
+                $('#div_qna_answer').text("")
+                $('.textarea_qna_answer').text("")
+              }else{
+                alert('삭제 실패')
+              }
+            }
+          })
+        }
+      })
+    })
+  </script>
+</head>
+<body>
+  <div th:text="${q.qna_no}" id="qna_no"></div>
+  <div th:text="${q.customer.name}"></div>
+  <div th:text="${q.customer.custid}"></div>
+  <div th:text="${q.qna_category}"></div>
+  <div th:text="${q.qna_title}"></div>
+  <div th:text="${q.qna_content}"></div>
+  <div th:text="${q.qna_hit}"></div>
+  <div th:text="${q.qna_date}"></div>
+  <div th:text="${q.qna_open}"></div>
+  <div th:text="${q.qna_answer}" id="div_qna_answer"></div>
+  <div th:text="${q.ticket.ticketid}"></div>
+  <div th:text="${q.ticket.ticket_name}"></div>
+  <div th:if="${q.qna_fname}!=null">
+    <div th:text="${q.qna_fname}"></div>
+    <div th:if="${#strings.endsWith(q.qna_fname,'.jpg')} or ${#strings.endsWith(q.qna_fname,'.png')} or ${#strings.endsWith(q.qna_fname,'.gif')}">
+      <img th:src="@{'/qna_files/'+${q.qna_fname}}">
+    </div>
+  </div>
+
+  <!-- 답글 작성 (admin만 가능) -->
+  <div th:if="${session.id}=='admin'">
+    <div>답글 작성/수정(원래 답글 있으면 새로운 내용으로 수정됨)</div>
+    <div th:if="${q.qna_answer}==null">
+      <textarea rows="7" cols="40" class="qna_answer"></textarea>
+    </div>
+    <div th:unless="${q.qna_answer}==null">
+      <textarea rows="7" cols="40" class="textarea_qna_answer" th:text="${q.qna_answer}"></textarea>
+    </div>
+    <button id="answer_submit">등록</button>
+    <div th:if="${q.qna_answer}!=null">
+      <button id="answer_delete">삭제</button>
+    </div>
+  </div>
+
+  <!--  수정 (작성자만 가능) -->
+  <div th:if="${session.id}==${q.customer.custid}">
+    <a th:href="@{'/qna/update/'+${q.qna_no}}">수정</a>
+  </div>
+</body>
+</html>

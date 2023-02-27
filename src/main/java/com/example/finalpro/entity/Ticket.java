@@ -3,7 +3,11 @@ package com.example.finalpro.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,7 +25,11 @@ public class Ticket {
     private int runtime;
     private String cast;
     private String content;
+    @Transient
+    private MultipartFile uploadFile;
     private String img_fname;
+    @Transient
+    private MultipartFile uploadFile_main;
     private String img_fname_main;
     private String vid_url;
     private String loc;

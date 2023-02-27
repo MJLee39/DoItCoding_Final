@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/admin/updateCustomer" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        고객 아이디 : <input type="text" th:value="${customer.custid}" readonly="readonly" name="custid"><br>
+        고객 이름 : <input type="text" th:value="${customer.name}" name="name"><br>
+        고객 비밀번호 : <input type="text" th:value="${customer.pwd}" name="pwd"><br>
+        고객 선호 장르 : <select th:value="${customer.cateid}" name="cateid"><br>
+        <option th:value="1" th:selected="${customer.cateid == 1}">영화 시사회</option>
+        <option th:value="2" th:selected="${customer.cateid == 2}">뮤지컬</option>
+        <option th:value="3" th:selected="${customer.cateid == 3}">연극</option>
+        <option th:value="4" th:selected="${customer.cateid == 4}">콘서트</option>
+    </select>
+        생년월일 : <input type="text" th:value="${birth}" name="birth"><br>
+        전화번호 : <input type="text" th:value="${customer.phone}" name="phone"><br>
+        이메일 : <input type="email" th:value="${customer.email}" name="email"><br>
+        주소 : <input type="text" th:value="${customer.addr}" name="addr"><br>
+        성별 :
+        <label for="gender1">
+            <input type="radio" name="gender" id="gender1" value="남자" th:checked="${customer.gender == '남자'}">
+            남자</label>
+            <label for="gender2">
+        <input type="radio" name="gender" id="gender2" value="여자" th:checked="${customer.gender == '여자'}">
+            여자</label><br>
+        <input type="hidden" name="role" th:value="${customer.role}"><br>
+        <input type="submit" value="수정">
+        <input type="reset" value="취소">
+    </form>
+</body>
+</html>

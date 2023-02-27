@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <script>
+    $(function (){
+      // 저장된 카테고리가 자동으로 selected 되게 처리
+      // $('#select_category').val($('#selected_category').text()).change()
+      let selected_category=$('#selected_category').html()
+      $('#select_category option[value="'+selected_category+'"]').prop('selected',true)
+
+      // 저장된 티켓 정보가 자동으로 selected 되게 처리
+      let selected_ticketid=$('#selected_ticketid').text()
+      $('#select_ticket option[value="'+selected_ticketid+'"]').prop('selected',true)
+
+      // 저장된 공개/비공개 여부가 자동으로 라디오 버튼 찍히게 처리
+      let selected_open=$('#selected_open').text()
+      console.log(selected_open)
+      $('input[name="qna_open"][value="'+selected_open+'"]').prop('checked',true)
+    })
+  </script>
+</head>
+<body>
+<!-- JS로 가져가기 위한 카테고리 값 출력 -->
+<div hidden="hidden" th:text="${q.qna_category}" id="selected_category"></div>
+<!-- JS로 가져가기 위한 티켓 정보 출력 -->
+<div hidden="hidden" th:text="${q.ticket.ticketid}" id="selected_ticketid"></div>
+<!-- JS로 가져가기 위한 공개 비공개 여부 출력 -->
+<div hidden="hidden" th:text="${q.qna_open}" id="selected_open"></div>
+
+<form action="/qna/update" method="post" enctype="multipart/form-data">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+  <input type="hidden" th:name="qna_no" th:value="${q.qna_no}">
+  <input type="hidden" name="qna_fname" th:value="${q.qna_fname}">
+  <input type="hidden" name="customer" th:value="${q.customer}">
+
+  <select name="qna_category" id="select_category" required>
+    <option value="예매/드로우">예매/드로우</option>
+    <option value="결제/환불">결제/환불</option>
+    <option value="기타">기타</option>
+  </select>
+  <br>
+  <input name="qna_title" placeholder="제목" th:value="${q.qna_title}" required><br>
+  <input name="qna_content" placeholder="내용" th:value="${q.qna_content}" required><br>
+  <input type="file" name="uploadFile"><br>
+  <input type="radio" id="y" name="qna_open" value="y" required>
+  <label for="y">공개</label>
+  <input type="radio" id="n" name="qna_open" value="n">
+  <label for="n">비공개</label><br>
+  <select name="ticketid" id="select_ticket" required>
+    <option value="0">해당 없음</option>
+    <option th:each="ticketVO:${ticketVOList}"
+            th:text="|[${ticketVO.ticket_date}]${ticketVO.ticket_name}(${ticketVO.loc})|"
+            th:value="${ticketVO.ticketid}"></option>
+  </select><br>
+  <input type="submit" value="등록">
+</form>
+</body>
+</html>

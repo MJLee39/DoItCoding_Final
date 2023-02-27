@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+    <insert id="insert" parameterType="noticeVO">
+        insert into notice(notice_no, notice_category, notice_title, notice_content, notice_fname) values(seq_notice_no.nextval,
+        #{notice_category},#{notice_title},#{notice_content},#{notice_fname})
+    </insert>
+</mapper>

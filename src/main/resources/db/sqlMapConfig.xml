@@ -6,6 +6,11 @@
 	<properties resource="db/db.properties"/>
 	<typeAliases>
 		<typeAlias type="com.example.finalpro.vo.CustomerVO" alias="customerVO"/>
+        <typeAlias type="com.example.finalpro.vo.TicketVO" alias="ticketVO"/>
+        <typeAlias type="com.example.finalpro.vo.RankingVO" alias="rankingVO"/>
+        <typeAlias type="com.example.finalpro.vo.NoticeVO" alias="noticeVO"/>
+        <typeAlias type="com.example.finalpro.vo.QnaVO" alias="qnaVO"/>
+        <typeAlias type="com.example.finalpro.vo.BookVO" alias="bookVO"/>
 	</typeAliases>
   <environments default="development">
     <environment id="development">
@@ -20,5 +25,10 @@
   </environments>
   <mappers>
     <mapper resource="db/CustomerMapper.xml"/>
+      <mapper resource="db/TicketMapper.xml"/>
+      <mapper resource="db/RankingMapper.xml"/>
+    <mapper resource="db/NoticeMapper.xml"/>
+    <mapper resource="db/QnaMapper.xml"/>
+    <mapper resource="db/BookMapper.xml"/>
   </mappers>
 </configuration>

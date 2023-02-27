@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+    <insert id="insert" parameterType="qnaVO">
+        insert into qna(qna_no, qna_category, qna_title, qna_content, qna_fname, qna_open, qna_answer,custid,ticketid) values(seq_qna_no.nextval,
+        #{qna_category},#{qna_title},#{qna_content},#{qna_fname},#{qna_open},#{qna_answer},#{custid},#{ticketid})
+    </insert>
+
+    <!--    답글 등록 및 수정 -->
+    <update id="updateAnswer" parameterType="qnaVO">
+        update qna set qna_answer=#{qna_answer} where qna_no=#{qna_no}
+    </update>
+
+    <!-- 비공개 글일 경우 로그인한 사용자가 작성자가 맞는지 확인 (맞으면 1, 틀리면 0을 반환) -->
+<!--    <select id="checkWriter" parameterType="qnaVO" resultType="java.lang.Integer">-->
+<!--        select count(*) from qna where custid=#{custid} and qna_no=#{qna_no}-->
+<!--    </select>-->
+    <update id="deleteAnswer" parameterType="java.lang.Integer">
+        update qna set qna_answer='' where qna_no=#{qna_no}
+    </update>
+
+    <update id="update" parameterType="qnaVO">
+        update qna set qna_category=#{qna_category}, qna_title=#{qna_title}, qna_content=#{qna_content},
+        qna_fname=#{qna_fname}, qna_open=#{qna_open}, ticketid=#{ticketid} where qna_no=#{qna_no}
+    </update>
+
+    <!--custid 고객 아이디에 따라 작성한 qna 목록 출력하기-->
+    <select id="selectQnaByCustid" resultType="qnaVO">
+        select * from qna where custid=#{custid}
+    </select>
+</mapper>

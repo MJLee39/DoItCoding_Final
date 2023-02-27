@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/customer/loginTest.css">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+	$(function(){
+		$("#form_login").submit(function(e){
+			var url = "LoginCustomer";
+			var data = $(this).serialize();
+			var custid = $("#custid").val();
+			$.ajax(url, {
+				data:data,
+				success:function(login_Flag){
+					alert("로그인 되었습니다.");
+					
+					if(login_Flag=='true'){
+						sessionStorage.setItem("custid", custid);
+						var url = "mainTest.html?custid="+custid;
+						location.replace(url);
+					}
+					
+				}
+			});
+			e.preventDefault();
+			
+		}); // form_login이 제출되었을 때
+		
+		
+	}) // 전체 $(function)
+
+</script>
+</head>
+<body>
+	<div id="background">
+		<a class="main" href="mainTest.html">
+		<img  src="/image/homeicon.png" width="40" height="40"></a>
+	</div>
+	<div>
+		<form id="form_login">
+			<img src="/image/logo.png" id="logo">
+			<h2>Login</h2>
+			<ul>
+				<li class="user">ID<input id="custid" type="text" name="custid"></li>
+				<li class="user">PW<input id="pwd" type="password" name="pwd"></li>
+			</ul>
+				<input type="submit" id="btn_login" value="Login" name="btn_login"><br>
+		<div class="caption">
+				<a href="signupTest.html">회원가입</a> <a href="findCustid.html">ID</a><a href="findPW.html">PW</a>
+		</div>					
+		</form>
+	</div>	
+</body>
+</html>

@@ -1,0 +1,252 @@
+/* 초기화하기 */
+	.main_layout{
+        width : 1380px;
+		margin : auto;
+    }
+	*{
+		font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}	
+	a{
+		text-decoration: none;
+	}	
+	li{
+		list-style: none;
+	}
+/* 상단 구성하기 */
+	#logo{
+		width: 370px;
+		height: 110px;
+		padding-top : 5px;
+		cursor : pointer;
+	}
+	.main_user{
+		float : right;
+		padding-top : 60px;
+		padding-right : 15px;
+	}
+	.main_user a{
+		color : #091140;
+		position : relative;
+		font-size : 11px;
+		font-style : bold;
+		margin :-18px;
+		padding-right : 20px;
+	}
+	.main_user img{
+		position : relative;
+		width : 46px;
+		height : 45px;
+		bottom : 15px;
+		left : 47px;
+	}
+	#login{
+		right : 7px;
+		bottom : 1px;
+	}
+	#login img{
+		padding-right : 6px;
+	}
+	#logout {
+		display: none;
+	}
+	#mypage{
+		display:none;
+	}
+	
+	.search{
+		overflow : hidden;
+		position: relative;
+  		top: 6px;
+  		right : 15px;
+		float : right;
+		width : 250px;
+		height : 40px; 
+      	border : 2px solid white; 
+      	border-radius : 25px 25px 25px 25px;
+	}
+	.search_txt{
+		position: relative;
+		color : white;
+		top: -10px;
+  		right : -15px;
+		width : 175px;
+		height : 30px; 
+		border: none; 
+		font-size : 13px;
+		background-color:rgba(255, 255, 255, 0);
+	}
+	.search_btn{
+		position : relative;
+  		right : -25px;
+	}
+/* main-header 구성하기 */
+	#menu{
+		z-index:100;
+	}
+
+	#navigation{
+		position: sticky;
+		top: 0;
+		z-index : 100;
+	}	
+	#navigation ul{
+		/*background-image: linear-gradient(90deg, #08428C, #091140);*/
+		background-color : #08428C;
+		border-radius : 5px 5px 0px 0px;
+		list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	}
+	#navigation ul:after{
+	    content:'';
+	    display: block;
+	    clear:both;
+	}
+	#navigation ul > li{
+		list-style : none;
+		display: inline-block;
+	    text-align: center;
+	    padding: 14px 45px;
+	}
+	#navigation li.home a{
+		color: #F2AE30;
+		font-weight : 600;
+		font-size : 17px;
+	}
+	#navigation li > a{
+		font-size : 16px;
+		color : white;
+		height: 100px;
+		text-decoration: none;
+		line-height : 30px;
+	}
+	#navigation li:hover:not(.home, #navigation li ul li){
+		transition-duration: 0.4s;
+		border-bottom: 5px solid #F2AE30;
+		padding-bottom : 9px;
+	}
+	#navigation ul li:hover ul {
+		display: block;
+	}
+	#navigation li ul{
+		z-index : 100;
+		position : absolute;
+		background-color : rgba(255, 255, 255, 0.8);
+		display : none;
+		height : auto; width : 170px;
+		margin-left : -60px;
+		margin-top : 14px;
+		border-radius : 0px 0px 10px 10px;
+	}
+	#navigation li ul li:hover{
+		font-weight : 600;
+	}
+	#navigation li ul li a{
+		color : #08348C;
+	}
+	hr{
+		position : absolute;
+		border: 0;
+		height : 2.5px;
+		background-color : #08348C;
+		top : 2000px;
+	}
+/* 포스터 부분 */	
+	.poster{
+		display : block;
+		position : absolute;
+		max-width: 100%;
+		width: 1400px;
+		height: 600px;
+		margin : auto;
+	}
+	#left_button, #right_button{
+		z-index : 99;
+		position : absolute;
+		display : inline-block;
+		cursor : pointer;
+		font-size:100px;
+		color: #F2AE30;
+		top: 380px;
+	}
+	#right_button{
+		position : absolute;
+		left : 1340px;
+	}
+	.slider{
+		float : left;
+		overflow : hidden;
+	}
+/* 본문 구성하기 */
+	.main_rank{
+		position : absolute;
+		margin : auto;
+		margin-left : 15px;
+	}
+	#main-content h2{
+		padding-left : 10px;
+		color : #F2AE30;	
+		padding : 10px;
+		margin-top : 70px;
+	}
+	#main-content p{
+		margin-top : 30px;
+		text-align : center;
+		font-size : 16px;
+		font-weight : 600;
+		color : #08428C;
+	}
+	#main-content ul{
+		text-align : center;
+	}
+	#main-content ul>li{
+		float : left;
+		border : 1.5px solid #dcdcdc; 
+      	border-radius : 25px 25px 25px 25px;
+      	width : 80px;
+      	height : 25px;
+      	line-height : 25px;
+      	padding : 5px;
+      	margin-right : 15px;
+	}
+	#main-content li a{
+		font-size : 14px;
+		color : #091140;
+		height: 100px;
+		text-decoration: none;
+	}
+	#main-content li:hover{
+		transition-duration: 0.5s;
+		background: #08428C;
+	}
+	#main-content li:hover a{
+		color : white;
+	}
+	#main-content div{
+		margin-bottom : 20px;
+	}
+	.img{
+		display: inline-block;
+		margin-top : 30px;
+		margin-left : 120px;
+		cursor : pointer;
+	}
+	#main-content:hover img{
+		background-color:rgba(255, 255, 255, 0.7);
+	}
+	.img:hover img{
+		transform : scale(1.05);
+		transition-duration: 0.5s;
+		z-index: 0;
+	}
+/* footer 구성하기 */
+	#main-footer{
+		padding-top: 100px;
+	}
+	footer{
+		line-height: 100px;
+		background: #08428C;
+		color: white;
+		font-size: 14px;
+		text-align: center;
+	}

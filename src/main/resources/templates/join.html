@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<h2>회원가입</h2>
+<hr>
+<form action="/join" method="post">
+    <!--
+    선호장르 : <select id="cateid" name="cateid"> <br>
+        <option value="1">영화</option>
+        <option value="2">뮤지컬</option>
+        <option value="3">연극</option>
+        <option value="4">콘서트</option>
+    </select> <br>
+    생년월일 : <input type="date" name="birth"> <br>
+    전화 : <input type="text" name="phone">  <br>
+    이메일 : <input type="text" name="email">  <br>
+    주소 : <input type="text" name="addr">  <br>
+    성별 : <input type="text" name="gender">  <br>
+    -->
+    아이디 : <input type="text" name="custid"><br>
+    암호 : <input type="password" name="pwd"><br>
+    이름 : <input type="text" name="name"><br>
+    주소 : <input type="text" name="addr">  <br>
+    <input type="hidden" name="role" value="customer">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="가입">
+    <input type="reset" value="취소">
+</form>
+</body>
+</html>

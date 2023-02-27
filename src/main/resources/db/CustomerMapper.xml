@@ -6,4 +6,39 @@
   <select id="findAll" resultType="customerVO">
     select * from customer
   </select>
+
+  <!--page에 따라 startRecord와 endRecord 구해서 출력하기-->
+  <select id="findCustomerPaging" resultType="customerVO">
+    select * from
+    (select rownum n, a.* from
+    (select * from customer order by custid) a)
+    where n between #{startRecord} and #{endRecord}
+  </select>
+
+  <!--page에 따라 startRecord와 endRecord 구해서 출력하기-->
+  <!--search에 따라 출력하기-->
+  <select id="findCustomerPagingSearch" resultType="customerVO">
+    select * from
+    (select rownum n, a.* from
+    (select * from customer
+    <if test="keyword != null and keyword != ''">
+      where (custid like '%'||#{keyword}||'%' or name like '%'||#{keyword}||'%' )
+    </if>
+    order by custid) a)
+    where n between #{startRecord} and #{endRecord}
+  </select>
+
+  <!--admin에서 customer의 목록을 페이징 처리하기 위해 customer의 totalRecord 숫자 구하기-->
+  <select id="getTotalRecord" resultType="java.lang.Integer">
+    select count(*) from customer
+    <if test="keyword != null and keyword != ''">
+      where (custid like '%'||#{keyword}||'%' or name like '%'||#{keyword}||'%' )
+    </if>
+  </select>
+
+  <!--updateCustomer 고객 정보 수정하기-->
+  <update id="updateCustomer" parameterType="customerVO">
+    update customer set cateid=#{cateid}, pwd=#{pwd}, name=#{name}, birth=#{birth}, phone=#{phone}, email=#{email}, addr=#{addr}, gender=#{gender}, role=#{role}
+    where custid=#{custid}
+  </update>
 </mapper>

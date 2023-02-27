@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -11,8 +12,15 @@ import java.util.Date;
 @Data
 @Table(name = "qna")
 public class Qna {
+    //JPA는 테이블 속성명과 엔티티의 변수명을 똑같이해야 인식함.
     @Id
     private int qna_no;
+    @ManyToOne
+    @JoinColumn(name = "ticketid", insertable = true, updatable = true)
+    private Ticket ticket;
+    @ManyToOne
+    @JoinColumn(name = "custid", insertable = true, updatable = true)
+    private Customer customer;
     private String custid;
     private int ticketid;
     private String qna_title;
@@ -22,5 +30,7 @@ public class Qna {
     private String qna_category;
     private String qna_fname;
     private String qna_answer;
-    private char qna_open;
+    private String qna_open;
+    @Transient
+    private MultipartFile uploadFile;
 }

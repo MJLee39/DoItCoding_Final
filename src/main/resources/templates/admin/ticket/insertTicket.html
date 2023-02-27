@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="insertTicket" action="/admin/insertTicket" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        티켓id : <input type="number" name="ticketid"><br>
+        장르 : <select id="cateid" name="cateid"> <br>
+        <option value="1">영화</option>
+        <option value="2">뮤지컬</option>
+        <option value="3">연극</option>
+        <option value="4">콘서트</option>
+        </select> <br>
+        <!--카카오 api로 주소 검색하고 위도 경도 자동으로 받기-->
+        장소 : <input type="text" name="loc">
+        위도 : <input type="text" name="lat">
+        경도 : <input type="text" name="lng">
+        장소유형 : <select id="placeid" name="placeid">
+        <option value="a">a</option>
+        <option value="b">b</option>
+        <option value="c">c</option>
+    </select> <br>
+        이름 :    <input type="text" name="ticket_name"> <br>
+        가격 : <input type="number" name="price"> <br>
+        날짜 : <input type="date" name="ticket_date">
+        <input type="time" name="ticket_date2">
+        <br>
+        내용 : <textarea rows="10" cols="80" name="content"></textarea> <br>
+        비디오 : <input type="text" name="vid_url"> <br>
+        제한연령 : <input type="number" name="min_age"> <br>
+        러닝타임 : <input type="number" name="runtime"> <br>
+        캐스트 : <input type="text" name="cast"> <br>
+        이미지 : <input type="file" name="uploadFile"><br>
+        메인 화면 이미지 : <input type="file" name="uploadFile_main">
+        <input type="submit" value="등록">
+        <input type="reset" value="취소">
+    </form>
+</body>
+</html>

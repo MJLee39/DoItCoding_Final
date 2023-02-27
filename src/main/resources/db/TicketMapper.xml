@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticket">
+    <!--main.html에서 카테고리, 시간 별로 상영작 출력하는 mapper sql 코드-->
+        <select id="findAllTicketByCategory" resultType="ticketVO">
+            select * from ticket where cateid=#{cateid} and
+            <if test="time==0">
+                ticket_date &lt; to_char(sysdate, 'yyyy/mm/dd')
+            </if>
+            <if test="time==1">
+                ticket_date &gt; to_char(sysdate, 'yyyy/mm/dd') and ticket_date &lt;= to_char(sysdate+7, 'yyyy/mm/dd')
+            </if>
+            <if test="time==2">
+                ticket_date &gt; to_char(sysdate+7, 'yyyy/mm/dd')
+            </if>
+        </select>
+
+    <!--page에 따라 startRecord와 endRecord 구해서 출력하기-->
+    <select id="findTicketPaging" resultType="ticketVO">
+        select * from
+        (select rownum n, a.* from
+        (select * from ticket order by ticketid) a)
+        where n between #{startRecord} and #{endRecord}
+    </select>
+
+    <!--page에 따라 startRecord와 endRecord 구해서 출력하기-->
+    <!--search에 따라 출력하기-->
+    <select id="findTicketPagingSearch" resultType="ticketVO">
+        select * from
+        (select rownum n, a.* from
+        (select * from ticket
+            <if test="keyword != null and keyword != ''">
+                where (ticket_name like '%'||#{keyword}||'%' or cast like '%'||#{keyword}||'%' )
+            </if>
+        order by ticketid) a)
+        where n between #{startRecord} and #{endRecord}
+    </select>
+
+    <!--keyword' 를 매개변수로 ticket 리스트 검색 결과를 출력하기-->
+    <select id="findSearchTicket" resultType="ticketVO">
+        select * from ticket where ticket_name like '%'||#{keyword}||'%' or cast like '%'||#{keyword}||'%'
+    </select>
+
+    <!--admin 사이트에서 ticket을 insert -->
+    <insert id="insertTicket" parameterType="ticketVO">
+        insert into ticket(ticketid,cateid,placeid,ticket_name,price,ticket_date,content,img_fname,img_fname_main,vid_url,min_age,runtime,cast,loc,lat,lng)
+        values(#{ticketid},#{cateid},#{placeid},#{ticket_name},#{price},to_date(#{ticket_date},'yyyy/mm/dd hh24:mi:ss'),#{content},#{img_fname},#{img_fname_main},#{vid_url},#{min_age},#{runtime},#{cast},#{loc},#{lat},#{lng})
+    </insert>
+    <!--admin 사이트에서 ticket을 update-->
+    <update id="updateTicket" parameterType="ticketVO">
+        update ticket set cateid=#{cateid}, placeid=#{placeid}, ticket_name=#{ticket_name}, price=#{price}, ticket_date=to_date(#{ticket_date},'yyyy/mm/dd hh24:mi:ss'), content=#{content}, img_fname=#{img_fname}, img_fname_main=#{img_fname_main}, vid_url=#{vid_url}, min_age=#{min_age}, runtime=#{runtime}, cast=#{cast}, loc=#{loc}, lat=#{lat}, lng=#{lng}
+        where ticketid=#{ticketid}
+    </update>
+
+    <!--admin에서 ticket의 목록을 페이징 처리하기 위해 ticket의 totalRecord 숫자 구하기-->
+    <select id="getTotalRecord" resultType="java.lang.Integer">
+        select count(*) from ticket
+        <if test="keyword != null and keyword != ''">
+            where (ticket_name like '%'||#{keyword}||'%' or cast like '%'||#{keyword}||'%' )
+        </if>
+    </select>
+
+</mapper>
