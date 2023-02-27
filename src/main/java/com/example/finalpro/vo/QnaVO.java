@@ -19,5 +19,4 @@ public class QnaVO {
     private String qna_answer;
     private String qna_open;
     private MultipartFile uploadFile;
-    private int ticketid;
 }

@@ -4,10 +4,11 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ticket">
     <!--main.html에서 카테고리, 시간 별로 상영작 출력하는 mapper sql 코드-->
+    <!-- time=0은 과거, time=1은 현재, time=2는 미래 -->
         <select id="findAllTicketByCategory" resultType="ticketVO">
             select * from ticket where cateid=#{cateid} and
             <if test="time==0">
-                ticket_date &lt; to_char(sysdate, 'yyyy/mm/dd')
+                ticket_date < to_char(sysdate, 'yyyy/mm/dd')
             </if>
             <if test="time==1">
                 ticket_date &gt; to_char(sysdate, 'yyyy/mm/dd') and ticket_date &lt;= to_char(sysdate+7, 'yyyy/mm/dd')

@@ -118,6 +118,7 @@ create table customer(
 	email varchar2(30) not null,
 	addr varchar2(300) not null,
 	gender varchar2(10) not null,
+	role varchar
 	constraints phone_uq unique (phone),
 	constraints email_uq unique (email)
 );

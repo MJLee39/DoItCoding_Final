@@ -1,8 +1,6 @@
 package com.example.finalpro.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +19,6 @@ public class Qna {
     @ManyToOne
     @JoinColumn(name = "custid", insertable = true, updatable = true)
     private Customer customer;
-    private String custid;
-    private int ticketid;
     private String qna_title;
     private String qna_content;
     private int qna_hit;
