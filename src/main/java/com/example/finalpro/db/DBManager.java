@@ -379,6 +379,18 @@ public class DBManager {
 		return re;
 	}
 
+	//Customer 아이디와 비번 일치 login
+	public static CustomerVO matchIdPwd(String custid, String pwd){
+		CustomerVO vo = null;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("custid", custid);
+		map.put("pwd", pwd);
+		SqlSession session = sqlSessionFactory.openSession();
+		vo= session.selectOne("customer.matchIdPwd", map);
+		session.close();
+		return vo;
+	}
+
 	// 고객정보 수정
 	public static int updateCustomer(CustomerVO customer){
 		int re = -1;

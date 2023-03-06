@@ -74,6 +74,10 @@ public class CustomerController {
     public void login() {
     }
 
+    @GetMapping("/loginFailed")
+    public void loginFailed(){
+    }
+
 
     @GetMapping("/signUp")
     public void signUp() {
@@ -219,6 +223,7 @@ public class CustomerController {
         return answer;
     }
 
+    //전화번호로 전송된 코드 일치 확인
     @GetMapping("/CustomerPhoneAuthentication")
     @ResponseBody
     public int customerPhoneAuthentication(String phoneCode){
@@ -232,7 +237,7 @@ public class CustomerController {
         return answer;
     }
 
-    //문자 전송
+    //문자로 코드 전송
     @GetMapping("/sendMessage")
     @ResponseBody
     public String sendMessage(String phone){
@@ -310,6 +315,7 @@ public class CustomerController {
         return c;
     }
 
+    //이메일로 전송된 코드 일치 확인
     @GetMapping("/CustomerEmailAuthentication")
     @ResponseBody
     public int customerEmailAuthentication(String emailCode){
@@ -339,4 +345,22 @@ public class CustomerController {
         }
         return "OK";
     }
+
+    //아이디와 비밀번호 일치
+    @RequestMapping("/matchIdPwd")
+    @ResponseBody
+    public int matchIdPwd(String custid, String pwd){
+        System.out.println("아이디:"+custid);
+        System.out.println("비번:"+pwd);
+        int answer = 0;
+        CustomerVO c1 = DBManager.findByCustid(custid);
+        String db_custid = c1.getCustid();
+        String db_pwd = c1.getPwd();
+        if(!custid.equals(db_custid)&&!pwd.equals(db_pwd)){
+            answer = 1;
+        }
+        System.out.println(answer);
+        return answer;
+    }
+
 }
