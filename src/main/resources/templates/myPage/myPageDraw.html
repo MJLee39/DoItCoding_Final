@@ -169,10 +169,10 @@
     </ul>
 </div>
 <div id="review_background">
-    <div class="drawList">
+
         <ul th:each="d:${list}">
             <form id="testForm">
-                <div class="drawlist">
+                <div class="drawList">
                     <img th:src="@{/images/}+${d.img_fname}" width="200" height="252">
                     <li>드로우번호 :<span th:text ="${d.drawid}" id="drawid"/> </li>
                     <li>제목 : <span th:text="${d.ticket_name}"/></li>
@@ -185,7 +185,7 @@
                 </div>
             </form>
         </ul>
-    </div>
+
 </div>
 <div id="main-footer">
     <footer class = "footer">
