@@ -130,13 +130,13 @@ public class MyPageReviewController {
     }
 
 //     같은 사용자, 같은 티켓의 리뷰가 있나 확인
-    @GetMapping("/CheckReview")
+    @GetMapping("/CheckReviewByTicketidCustid")
     @ResponseBody
-    public int findCheckReview(String custid, int ticketid){
+    public int CheckReviewByTicketidCustid(String custid, int ticketid){
         ReviewVO r=new ReviewVO();
         r.setCustid(custid);
         r.setTicketid(ticketid);
-        return DBManager.checkReviewByTicketid(r);
+        return DBManager.checkReviewByTicketidCustid(r);
     }
 
 //    // 리뷰 등록 submit AJAX

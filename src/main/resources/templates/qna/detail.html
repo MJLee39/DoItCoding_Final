@@ -57,7 +57,7 @@
       <a id="chat-channel-button" href="javascript:chatChannel()"><img src="/images/icon/consult_small_yellow_pc.png"/></a>
     </ul>
   </nav>
-  <a href="/qna/list/1/all">QNA 목록</a>
+  <div class="detail_listBtn"><a href="/qna/list/1/all">QNA 목록</a></div>
     <!--  수정/삭제 (작성자만 가능) (전체 글을 수정/삭제하는 것) -->
   <div id="background_detail_qna">
     <h2>Q&A</h2>
@@ -86,7 +86,7 @@
       <br>
         <span class="title_detail">내용&nbsp;&nbsp;&nbsp;<div id="notice_content"><span th:text="${q.qna_content}"></span></div></span><br>
         <span class="title_detail">조회수&nbsp;&nbsp;&nbsp;<span th:text="${q.qna_hit}"></span></span>
-      <span class="title_detail" id="answer">답변여부&nbsp;&nbsp;&nbsp;<span th:text="${q.qna_answer}" id="div_qna_answer"></span></span><br>
+      <span class="title_detail" id="answer">답변&nbsp;&nbsp;&nbsp;<span th:text="${q.qna_answer}" id="div_qna_answer"></span></span><br>
       <br>
   <!--  <div th:text="${q.qna_open}"></div>-->
   <!--  <div th:text="${q.ticket.ticketid}"></div>-->

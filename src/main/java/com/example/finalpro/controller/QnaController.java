@@ -325,17 +325,19 @@ public class QnaController {
     // 답글 알림 갯수 계산 Ajax
     @ResponseBody
     @GetMapping("/countNChecked")
-    public int countNChecked(){
-        int cnt=DBManager.countNChecked();
+    public int countNChecked(HttpSession session){
+        String loginId=(String)session.getAttribute("id");
+        int cnt=DBManager.countNChecked(loginId);
         return cnt;
     }
 
     // DB 'checked' 칼럼 업데이트 n->y
     @ResponseBody
     @GetMapping("/updateCheckedToY")
-    public int updateCheckedToY(){
+    public int updateCheckedToY(HttpSession session){
+        String loginId=(String)session.getAttribute("id");
         int re=-1;
-        re=DBManager.updateCheckedToY();
+        re=DBManager.updateCheckedToY(loginId);
         return re;
     }
 

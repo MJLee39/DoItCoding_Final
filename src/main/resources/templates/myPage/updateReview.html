@@ -63,14 +63,15 @@
     resize: none;
 }
 #addBtn{
-	position : relative;
+	position : absolute;
 	width : 110px; height : 40px;
 	font-size : 14px;
 	border : none; cursor: pointer;
 	border-radius : 10px;
 	background-color : #08428C;
 	color : #F2AE30;
-	margin-left : 175px;
+	margin-left : 1050px;
+	margin-top: 600px;
 }
 </style>
 <script type="text/javascript" src = "https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -110,7 +111,7 @@ $(function(){
 						  placeholder="내용을 입력해주세요" th:text="${r.review_content}"></textarea>
 			</div>
 		</div>
-		<input type="submit" value="등록">
+		<input type="submit" value="등록" id="addBtn">
 	</form>
 </body>
 </html>

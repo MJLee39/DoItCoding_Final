@@ -30,14 +30,15 @@
     </if>
   </select>
 
-<!--  리뷰내역이 있나 확인-->
-<!--  <select id="checkReview" resultType="myReviewVO">-->
-<!--    select * from review r, ticket t where t.ticketid=r.ticketid and r.ticketid=#{ticketid}-->
-<!--  </select>-->
-  <!--리뷰내역이 있나 확인-->
-  <select id="checkReview" resultType="java.lang.Integer" parameterType="reviewVO">
-    select count(*) from review r, ticket t where t.ticketid=r.ticketid and r.ticketid=#{ticketid} and
-    r.custid=#{custid}
+<!--  리뷰내역이 있나 확인(ticket/detail) -->
+  <select id="checkReview" resultType="myReviewVO">
+    select * from review r, ticket t where t.ticketid=r.ticketid and r.ticketid=#{ticketid}
+  </select>
+
+  <!--리뷰내역이 있나 확인 (마이페이지)-->
+  <select id="checkReviewByTicketidCustid" resultType="java.lang.Integer" parameterType="reviewVO">
+    select count(*) from review r, ticket t where t.ticketid=r.ticketid and r.ticketid=#{ticketid}
+    and r.custid=#{custid}
   </select>
 
 <!--  &lt;!&ndash; 사용자 리뷰 내역 출력 &ndash;&gt;-->

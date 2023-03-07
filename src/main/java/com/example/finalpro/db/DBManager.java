@@ -248,6 +248,15 @@ public class DBManager {
 		return list;
 	}
 
+	// 리뷰가 있나 확인
+	public static List<ReviewVO> checkReview(int ticketid){
+		List<ReviewVO> list=null;
+		SqlSession session = sqlSessionFactory.openSession();
+		list = session.selectList("review.checkReview",ticketid);
+		session.close();
+		return list;
+	}
+
 	// 티켓의 리뷰 출력, 정렬
 	public static List<ReviewVO> findReviewByTicketid(int ticketid, int re){
 		List<ReviewVO> list = null;
@@ -702,19 +711,19 @@ public class DBManager {
 	}
 
 	// 체크 안 한 알림 갯수
-	public static int countNChecked(){
+	public static int countNChecked(String custid){
 		int re=-1;
 		SqlSession session=sqlSessionFactory.openSession();
-		re=session.selectOne("notification.countNChecked");
+		re=session.selectOne("notification.countNChecked",custid);
 		session.close();
 		return re;
 	}
 
 	// 알림 checked : n->y\
-	public static int updateCheckedToY(){
+	public static int updateCheckedToY(String custid){
 		int re=-1;
 		SqlSession session=sqlSessionFactory.openSession(true);
-		re=session.update("notification.updateCheckedToY");
+		re=session.update("notification.updateCheckedToY", custid);
 		session.close();
 		return re;
 	}
@@ -777,10 +786,10 @@ public class DBManager {
 //	}
 
 	// 마이페이지 리뷰등록 - 등록 전 ticketid로 리뷰내역이 있나 확인
-	public static int checkReviewByTicketid(ReviewVO r){
+	public static int checkReviewByTicketidCustid(ReviewVO r){
 		int re=-1;
 		SqlSession session = sqlSessionFactory.openSession();
-		re = session.selectOne("review.checkReview",r);
+		re = session.selectOne("review.checkReviewByTicketidCustid",r);
 		session.close();
 		return re;
 	}

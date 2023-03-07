@@ -9,7 +9,9 @@ import com.example.finalpro.vo.ReviewVO;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -37,6 +39,13 @@ public class ReviewController {
         System.out.println("ticketid-review:"+ticketid);
         System.out.println("re-review:"+re);
         return DBManager.findReviewByTicketid(ticketid,re);
+    }
+
+    //ticketid별로 전체 리뷰 출력
+    @GetMapping("/CheckReview")
+    @ResponseBody
+    public List<ReviewVO> CheckReview(@RequestParam int ticketid){
+        return DBManager.checkReview(ticketid);
     }
 
 //    // 사용자의 리뷰 출력
