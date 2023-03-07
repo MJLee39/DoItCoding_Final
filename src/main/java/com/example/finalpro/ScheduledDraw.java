@@ -2,7 +2,9 @@ package com.example.finalpro;
 
 import com.example.finalpro.controller.DrawController;
 import com.example.finalpro.dao.TicketDAO;
+import com.example.finalpro.db.DBManager;
 import com.example.finalpro.entity.Ticket;
+import com.example.finalpro.vo.TicketVO;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -26,13 +28,13 @@ public class ScheduledDraw {
     private TicketDAO ticketDAO;
 
     //매일 오후 12시에 다음날이 상영일인 상품에 대해 드로우 진행
-    @Scheduled(cron = "0 0 12 * * ?")
+    @Scheduled(cron = "0 27 13 * * ?")
     public void draw(){
-        List<Ticket> tickets = ticketDAO.findAll();
+        List<TicketVO> tickets = DBManager.selectTicketWhichDraw();
         int toYear = date.getYear()+1900;
         int toMonth = date.getMonth()+1;
         int toDay = date.getDate();
-        for(Ticket t : tickets){
+        for(TicketVO t : tickets){
 
             String date = t.getTicket_date().substring(0,10);       //년 월 일 까지만 잘라준다.
             String arr[] = date.split("-");                 // 년 월 일 기준으로 잘라 배열에 저장.

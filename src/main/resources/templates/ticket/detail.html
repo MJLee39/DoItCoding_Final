@@ -18,9 +18,6 @@
             var custid = sessionStorage.getItem("custid");
             var ticketid = sessionStorage.getItem("ticketid");
 
-
-            $( "#datepicker" ).datepicker();
-
             $.ajax({
                 url: "DetailTicket",
                 data: {ticketid: ticketid},
@@ -122,29 +119,33 @@
                                         "display":"inline"
                                     });
                                     $(document).on("click","#btndraw",function(){
-                                        console.log("btndraw 클릭");
-                                        $.ajax({
-                                            url:"selectDrawNoSame",
-                                            data:{ticketid:ticketid,
+                                        if(custid != null && custid !="none" && custid !=""){
+                                            console.log("btndraw 클릭");
+                                            $.ajax({
+                                                url:"selectDrawNoSame",
+                                                data:{ticketid:ticketid,
                                                     custid:custid},
-                                            success:function (results){
-                                                console.log("뭐야"+results);
-                                                if(results != null && results !=""){
-                                                    alert("이미 신청하셨습니다.")
-                                                }else{
-                                                    $.ajax({
-                                                        url:'DrawInsert',
-                                                        data:{ticketid:ticketid,
-                                                            custid:custid},
-                                                        success:function(res){
-                                                            if(res>0){
-                                                                alert("드로우 신청이 완료되었습니다.");
+                                                success:function (results){
+                                                    console.log("뭐야"+results);
+                                                    if(results != null && results !=""){
+                                                        alert("이미 신청하셨습니다.")
+                                                    }else{
+                                                        $.ajax({
+                                                            url:'DrawInsert',
+                                                            data:{ticketid:ticketid,
+                                                                custid:custid},
+                                                            success:function(res){
+                                                                if(res>0){
+                                                                    alert("드로우 신청이 완료되었습니다.");
+                                                                }
                                                             }
-                                                        }
-                                                    });
+                                                        });
+                                                    }
                                                 }
-                                            }
-                                        })
+                                            })
+                                        }else{
+                                            alert("로그인을 해주세요.")
+                                        }
                                     });
                                 }
 
@@ -221,10 +222,13 @@
                             "background-color":"#d10505"
                         });
                         $(document).on("click","#btnbook",function(){
-                            //location.href="detailPageTest.html";
                             console.log("btnbook 클릭");
-                            var url = "/regist";
-                            location.replace(url);
+                            if(custid != null && custid !="none" && custid !=""){
+                                var url = "/regist";
+                                location.replace(url);
+                            }else{
+                                alert("로그인을 해주세요.")
+                            }
                         });
                     }
                 }
@@ -274,16 +278,20 @@
                                     });
                                     $(document).on("click","#btndraw",function(){
                                         console.log("btndraw 클릭");
-                                        $.ajax({
-                                            url:'DrawInsert',
-                                            data:{ticketid:ticketid,
-                                                custid:custid},
-                                            success:function(res){
-                                                if(res>0){
-                                                    alert("드로우 신청이 완료되었습니다.");
+                                        if(custid != null && custid !="none" && custid !=""){
+                                            $.ajax({
+                                                url:'DrawInsert',
+                                                data:{ticketid:ticketid,
+                                                    custid:custid},
+                                                success:function(res){
+                                                    if(res>0){
+                                                        alert("드로우 신청이 완료되었습니다.");
+                                                    }
                                                 }
-                                            }
-                                        });;
+                                            });
+                                        }else{
+                                            alert("로그인을 해주세요");
+                                        }
                                     });
                                 }
 

@@ -75,11 +75,16 @@ public class DrawController {
         return seatArr;
     }
 
+    //드로우 신청한 티켓 반환
+    public List<TicketVO> selectTicketWhichDraw() {
+        return DBManager.selectTicketWhichDraw();
+    }
+
     //드로우 가동
     @GetMapping("/drawExec")
     @ResponseBody
     public String drawExec(int ticketid){
-        int count = DBManager.findLeftSeatByTicketid(ticketid);
+        int count = DBManager.findLeftSeatByTicketid(ticketid);  // 그 티켓의 남은 좌석
         List<DrawVO> draw = drawList(ticketid);
         System.out.println("드로우 사이즈:"+draw.size());
         String custidArr[] = new String[count];           //드로우에 당첨된 회원아이디 저장
@@ -96,17 +101,20 @@ public class DrawController {
             list.add(d);
         }
 
-        for (int i = 0; i < count; i++){
-            int number = r.nextInt(list.size());        //랜덤함수를 드로우를 신청한 회원 수 만큼의 크기로 설정
-            custidArr[i] = list.get(number).getCustid();      //랜덤함수에 배정된 회원아이디를 배열에 저장
-            lucker[i] = custidArr[i];
-            list.remove(number);                         //당첨된 회원은 linkedList에서 제거하고 반복문 가동
+        if(list.size()>0){
+            for (int i = 0; i < count; i++){
+                int number = r.nextInt(list.size());        //랜덤함수를 드로우를 신청한 회원 수 만큼의 크기로 설정
+                custidArr[i] = list.get(number).getCustid();      //랜덤함수에 배정된 회원아이디를 배열에 저장
+                lucker[i] = custidArr[i];
+                list.remove(number);                         //당첨된 회원은 linkedList에서 제거하고 반복문 가동
+            }
         }
+
 
 
         DBManager.drawDeleteSeatId(ticketid);              //여러번 드로우 할 경우를 대비해 드로우 전 draw테이블에 당첨여부 초기화
         for(int i = 0; i < count; i++){
-            DBManager.drawUpdate(lucker[i], seatArr[i]);    //당첨된 회원이름과 남은 좌석을 draw 테이블에 반영
+            DBManager.drawUpdate(lucker[i], seatArr[i],ticketid);    //당첨된 회원이름과 남은 좌석을 draw 테이블에 반영
         }
         return "success";
     }
