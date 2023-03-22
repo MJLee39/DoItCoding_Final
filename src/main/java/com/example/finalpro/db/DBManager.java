@@ -528,6 +528,8 @@ public class DBManager {
 		List<DrawVO> draw = null;
 		SqlSession session = sqlSessionFactory.openSession(true);
 		draw = session.selectList("draw.drawTest",ticketid);
+		System.out.println("drawTest-ticketid:"+ticketid);
+		System.out.println("drawTest-draw:"+draw);
 		session.close();
 		return draw;
 	}
@@ -537,16 +539,22 @@ public class DBManager {
 		List<SeatVO> list = null;
 		SqlSession session = sqlSessionFactory.openSession(true);
 		list = session.selectList("seat.selectDrawLeftSeat",ticketid);
+		System.out.println("drawLeftSeat-ticketid:"+ticketid);
+		System.out.println("drawLeftSeat-list:"+list);
 		session.close();
 		return list;
 	}
 
-	public static int drawUpdate(String custid, int seatid) {
+	public static int drawUpdate(String custid, int seatid, int ticketid) {
 		int re = -1;
 		SqlSession session = sqlSessionFactory.openSession(true);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("custid", custid);
 		map.put("seatid", seatid);
+		map.put("ticketid", ticketid);
+		System.out.println("custid:"+custid);
+		System.out.println("seatid:"+seatid);
+		System.out.println("ticketid:"+ticketid);
 		re = session.update("draw.updateDraw",map);
 		session.close();
 		return re;
@@ -556,6 +564,15 @@ public class DBManager {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		session.update("draw.drawDeleteSeatId",ticketid);
 		session.close();
+	}
+
+	// 드로우 신청한 티켓 조회
+	public static List<TicketVO> selectTicketWhichDraw(){
+		List<TicketVO> list = null;
+		SqlSession session = sqlSessionFactory.openSession();
+		list = session.selectList("draw.selectTicketWhichDraw");
+		session.close();
+		return list;
 	}
 
 

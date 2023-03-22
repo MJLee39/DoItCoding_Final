@@ -12,6 +12,11 @@
     insert into draw(drawid,custid,ticketid) values(seq_drawid.nextval,#{custid},#{ticketid})
   </insert>
 
+  <!-- 드로우 신청한 티켓조회 -->
+  <select id="selectTicketWhichDraw" resultType="ticketVO">
+    select t.ticketid,ticket_date from draw d, ticket t where t.ticketid=d.ticketid
+  </select>
+
   <!-- 드로우 중복 신청 방지 -->
   <select id="selectDrawNoSame" resultType="drawVO">
     select drawid,ticketid,custid from draw where ticketid=#{ticketid} and custid=#{custid}
@@ -22,7 +27,7 @@
   </select>
 
   <update id="updateDraw">
-    update draw set seatid = #{seatid} where custid = #{custid}
+    update draw set seatid = #{seatid} where custid = #{custid} and ticketid=#{ticketid}
   </update>
 
   <update id="drawDeleteSeatId">
